@@ -235,25 +235,20 @@
                     </div>
                 </div>
                 
-                <!-- Spotify Player Section -->
-                <div class="spotify-container">
+                <!-- YouTube Music Player Section -->
+                <div class="music-container">
                     <h2>Study Music</h2>
-                    <div id="spotify-auth-container">
-                        <button id="spotify-login-btn" class="spotify-btn">
-                            <i class="fab fa-spotify"></i> Login with Spotify
-                        </button>
-                        <p id="spotify-status" class="spotify-status"></p>
+                    <div class="music-input-container">
+                        <input type="text" id="youtube-music-search" placeholder="Search for music or videos...">
+                        <button id="search-youtube-btn" class="music-btn"><i class="fas fa-search"></i> Search</button>
                     </div>
-                    <div id="spotify-player-section" style="display: none;">
-                        <div class="spotify-input-container">
-                            <input type="text" id="spotify-playlist-url" placeholder="Enter Spotify Playlist URL or Embed Code">
-                            <button id="add-spotify-btn" class="spotify-btn"><i class="fas fa-plus"></i> Add Playlist</button>
-                        </div>
-                        <div id="spotify-player-container">
-                            <div class="no-playlist-message">
-                                <i class="fab fa-spotify"></i>
-                                <p>Add your Spotify playlist to enhance your study session</p>
-                            </div>
+                    <div id="search-results-container" class="search-results-container">
+                        <!-- Search results will appear here -->
+                    </div>
+                    <div id="youtube-player-container">
+                        <div class="no-playlist-message">
+                            <i class="fab fa-youtube"></i>
+                            <p>Search for music to enhance your study session</p>
                         </div>
                     </div>
                 </div>
@@ -284,6 +279,5 @@
     <audio id="villager-sound" src="villager.mp3"></audio>
     
     <script src="script.js"></script>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
 </body>
 </html> 

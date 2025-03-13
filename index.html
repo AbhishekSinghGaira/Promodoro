@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Prep Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="app-container">
+            <header>
+                <h1 id="app-title">Exam Prep Pomodoro Timer</h1>
+                <p class="subtitle">Stay focused, track your progress</p>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                        <mask class="moon" id="moon-mask">
+                            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                            <circle cx="24" cy="10" r="6" fill="black" />
+                        </mask>
+                        <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                        <g class="sun-beams" stroke="currentColor">
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </g>
+                    </svg>
+                </button>
+            </header>
+            
+            <!-- Daily Quote Section (Visible on both screens) -->
+            <div class="daily-quote-container">
+                <div class="quote-content">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p id="daily-quote">Loading today's inspiration...</p>
+                    <p id="quote-author">- Unknown</p>
+                </div>
+            </div>
+            
+            <!-- Goal Selection Section (Initially Visible) -->
+            <div id="goal-selection" class="goal-selection-container">
+                <h2>Choose Your Preparation Goal</h2>
+                
+                <!-- Name Input Section -->
+                <div class="name-input-container">
+                    <h3>Enter Your Name</h3>
+                    <input type="text" id="user-name" placeholder="Your Name" required>
+                </div>
+                
+                <div class="goal-options">
+                    <div class="goal-card" data-goal="JEE">
+                        <div class="goal-icon"><i class="fas fa-atom"></i></div>
+                        <h3>JEE</h3>
+                        <p>Joint Entrance Examination</p>
+                    </div>
+                    <div class="goal-card" data-goal="NEET">
+                        <div class="goal-icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>NEET</h3>
+                        <p>National Eligibility cum Entrance Test</p>
+                    </div>
+                </div>
+                
+                <div class="year-selection">
+                    <h3>Target Year</h3>
+                    <select id="target-year">
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                </div>
+                
+                <button id="start-app-btn" class="primary-btn">Start Preparation</button>
+            </div>
+            
+            <!-- Main App (Initially Hidden) -->
+            <div id="main-app" class="main-app" style="display: none;">
+                <!-- User Name Display -->
+                <div class="user-name-display">
+                    <i class="fas fa-user"></i>
+                    <span id="corner-name"></span>
+                </div>
+
+                <div class="timer-container">
+                    <div class="timer-display">
+                        <div class="timer-circle">
+                            <div class="progress-ring">
+                                <svg class="progress" width="250" height="250">
+                                    <circle class="progress-ring-circle" stroke-width="8" stroke-linecap="round" fill="transparent" r="115" cx="125" cy="125"></circle>
+                                </svg>
+                                <div class="time">25:00</div>
+                                <div class="session-type">Focus Time</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timer-controls">
+                        <button id="start-btn" class="control-btn"><i class="fas fa-play"></i> Start</button>
+                        <button id="pause-btn" class="control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
+                        <button id="reset-btn" class="control-btn"><i class="fas fa-redo"></i> Reset</button>
+                    </div>
+                </div>
+                
+                <!-- Subject Practice Section -->
+                <div class="subject-practice-container">
+                    <h2>Subject Practice</h2>
+                    <div class="subject-cards">
+                        <div class="subject-card physics">
+                            <div class="subject-icon"><i class="fas fa-atom"></i></div>
+                            <h3>Physics</h3>
+                            <div class="subject-progress-ring">
+                                <svg class="progress" width="150" height="150">
+                                    <circle class="subject-progress-circle" stroke-width="6" stroke-linecap="round" fill="transparent" r="65" cx="75" cy="75"></circle>
+                                </svg>
+                                <div class="subject-timer">00:00</div>
+                            </div>
+                            <button class="subject-timer-btn start-physics">Start Practice</button>
+                        </div>
+                        <div class="subject-card chemistry">
+                            <div class="subject-icon"><i class="fas fa-flask"></i></div>
+                            <h3>Chemistry</h3>
+                            <div class="subject-progress-ring">
+                                <svg class="progress" width="150" height="150">
+                                    <circle class="subject-progress-circle" stroke-width="6" stroke-linecap="round" fill="transparent" r="65" cx="75" cy="75"></circle>
+                                </svg>
+                                <div class="subject-timer">00:00</div>
+                            </div>
+                            <button class="subject-timer-btn start-chemistry">Start Practice</button>
+                        </div>
+                        <div class="subject-card third-subject">
+                            <div class="subject-icon"><i class="fas fa-square-root-alt"></i></div>
+                            <h3 class="third-subject-name">Mathematics</h3>
+                            <div class="subject-progress-ring">
+                                <svg class="progress" width="150" height="150">
+                                    <circle class="subject-progress-circle" stroke-width="6" stroke-linecap="round" fill="transparent" r="65" cx="75" cy="75"></circle>
+                                </svg>
+                                <div class="subject-timer">00:00</div>
+                            </div>
+                            <button class="subject-timer-btn start-third-subject">Start Practice</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Analysis Popup -->
+                <div id="performance-popup" class="performance-popup">
+                    <div class="performance-content">
+                        <h2>Practice Analysis</h2>
+                        <div class="question-input">
+                            <label>Total Questions Attempted:</label>
+                            <input type="number" id="total-questions" min="1">
+                        </div>
+                        <div class="question-input">
+                            <label>Correct Answers:</label>
+                            <input type="number" id="correct-answers" min="0">
+                        </div>
+                        <div class="performance-result">
+                            <p>Accuracy: <span id="accuracy-percentage">0</span>%</p>
+                            <p class="performance-message"></p>
+                        </div>
+                        <button id="save-performance" class="primary-btn">Save Results</button>
+                    </div>
+                </div>
+
+                <!-- Motivation Audio -->
+                <audio id="motivation-audio" src="https://drive.google.com/uc?export=download&id=1_VtBwkuYNfJ5zNrgwHxB3h4Qx44YByYM"></audio>
+                
+                <div class="settings-container">
+                    <h2>Timer Settings</h2>
+                    <div class="goal-info">
+                        <div class="current-goal">
+                            <span>Current Goal:</span>
+                            <strong id="current-goal-display">JEE 2024</strong>
+                            <button id="change-goal-btn" class="small-btn"><i class="fas fa-edit"></i> Change</button>
+                        </div>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="setting">
+                            <label for="focus-time">Focus Time (min)</label>
+                            <input type="number" id="focus-time" min="1" max="60" value="25">
+                        </div>
+                        <div class="setting">
+                            <label for="short-break">Short Break (min)</label>
+                            <input type="number" id="short-break" min="1" max="30" value="5">
+                        </div>
+                        <div class="setting">
+                            <label for="long-break">Long Break (min)</label>
+                            <input type="number" id="long-break" min="1" max="60" value="15">
+                        </div>
+                        <div class="setting">
+                            <label for="sessions-before-long-break">Sessions Before Long Break</label>
+                            <input type="number" id="sessions-before-long-break" min="1" max="10" value="4">
+                        </div>
+                        <div class="setting">
+                            <label for="subject-practice-time">Subject Practice Time (min)</label>
+                            <input type="number" id="subject-practice-time" min="5" max="120" value="45">
+                        </div>
+                    </div>
+                    <div class="sound-setting">
+                        <label for="sound-enabled">
+                            <input type="checkbox" id="sound-enabled" checked>
+                            Enable Sound Notifications
+                        </label>
+                    </div>
+                    <button id="save-settings" class="save-btn">Save Settings</button>
+                </div>
+                
+                <div class="stats-container">
+                    <h2>Your Progress</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="current-streak">0</div>
+                            <div class="stat-label">Current Streak</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="best-streak">0</div>
+                            <div class="stat-label">Best Streak</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-focus">0</div>
+                            <div class="stat-label">Total Focus Sessions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="total-time">0h</div>
+                            <div class="stat-label">Total Focus Time</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spotify Player Section -->
+                <div class="spotify-container">
+                    <h2>Study Music</h2>
+                    <div id="spotify-auth-container">
+                        <button id="spotify-login-btn" class="spotify-btn">
+                            <i class="fab fa-spotify"></i> Login with Spotify
+                        </button>
+                        <p id="spotify-status" class="spotify-status"></p>
+                    </div>
+                    <div id="spotify-player-section" style="display: none;">
+                        <div class="spotify-input-container">
+                            <input type="text" id="spotify-playlist-url" placeholder="Enter Spotify Playlist URL or Embed Code">
+                            <button id="add-spotify-btn" class="spotify-btn"><i class="fas fa-plus"></i> Add Playlist</button>
+                        </div>
+                        <div id="spotify-player-container">
+                            <div class="no-playlist-message">
+                                <i class="fab fa-spotify"></i>
+                                <p>Add your Spotify playlist to enhance your study session</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="study-tips">
+                    <h3 id="tips-title">Study Tips</h3>
+                    <div class="tip-container">
+                        <p id="study-tip">Use the Pomodoro technique to maintain focus and prevent burnout during your exam preparation.</p>
+                        <button id="new-tip-btn"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="welcome-popup" class="welcome-popup">
+        <div class="welcome-content">
+            <i class="fas fa-graduation-cap welcome-icon"></i>
+            <h2>Welcome aboard!</h2>
+            <p>Let's achieve your goals together, <span id="welcome-name"></span>!</p>
+            <button id="welcome-close" class="primary-btn">Let's Go!</button>
+        </div>
+    </div>
+    
+    <audio id="timer-end" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"></audio>
+    <audio id="break-end" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-notification-951.mp3"></audio>
+    <audio id="ting-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-small-hit-in-a-game-2072.mp3"></audio>
+    <audio id="villager-sound" src="villager.mp3"></audio>
+    
+    <script src="script.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+</body>
+</html> 
